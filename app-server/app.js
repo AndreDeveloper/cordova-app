@@ -8,6 +8,13 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const router = require('./routes/server');
 
+app.use( function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+  next();
+});
+
 // Configurando o Servidor
 app.set('port', process.env.PORT || 8080);
 
@@ -18,7 +25,7 @@ app.set('port', process.env.PORT || 8080);
  */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/', router);
+app.use('/services', router);
 
 //start server 
 console.log("server running at localhost:8080");

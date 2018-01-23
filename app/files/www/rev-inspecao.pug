@@ -1,0 +1,47 @@
+extends layout.pug
+
+block variables
+    - var title = "Bureau Veritas - REV INSPEÇÃO"
+
+block scripts  
+    script(src="js/rev-inspecao.js" rel="text/javascript")
+
+block content
+    h3.center-align Rev
+
+    .fixed-action-btn.horizontal
+        a.btn-floating.btn-large.waves-effect.waves-light.red
+            i.material-icons add
+
+    .row
+        form.col.s12
+            .row                  
+                .col.s12
+                    .row
+                        .input-field.col.s12
+                            i.material-icons.prefix insert_drive_file
+                            input#doc.autocomplete(type="text")
+                            label(for="doc") DOC:                  
+                
+                .col.s12
+                    .row
+                        .input-field.col.s12
+                            i.material-icons.prefix dialpad
+                            input#partNumber.autocomplete(type="text")
+                            label(for="partNumber") Part Number:                  
+                .col.s12
+                    .row
+                        .input-field.col.s12
+                            select#status                        
+                                option 
+                                option(value="Concluido") Concluido
+                                option(value="Pendente") Pendente                        
+                            label(for="Part Number") Part Number:
+                .col.s12
+                    .row
+                        .col.s12.center-align
+                            a#btnPesquisarRev.waves-effect.waves-light.btn Pesquisar
+                                i.material-icons.right search
+            .row                  
+                .col.s12
+                    .row#resultadoPesquisa                    
