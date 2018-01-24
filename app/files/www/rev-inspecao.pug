@@ -7,10 +7,12 @@ block scripts
     script(src="js/rev-inspecao.js" rel="text/javascript")
 
 block content
+    include loading-modal
+    
     h3.center-align Rev
 
     .fixed-action-btn.horizontal
-        a.btn-floating.btn-large.waves-effect.waves-light.red
+        a.btn-floating.btn-large.waves-effect.waves-light.red(href="nova-rev.html")
             i.material-icons add
 
     .row

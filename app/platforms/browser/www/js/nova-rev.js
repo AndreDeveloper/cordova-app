@@ -1,0 +1,138 @@
+$(document).ready(function(){
+    loadSelectFields();
+    mountEvents();
+});
+
+function mountEvents(){
+    $("#partNumber").on("keyup", function(event){
+        partNumberAutocomplete();
+    });
+    $("#partNumber").on("change", function(event){
+        fillPnDescricao();
+    });
+    
+    $("#salvar").unbind("click");
+    $("#salvar").bind("click", function(event){
+        postData();
+    });
+}
+
+function loadSelectFields(){
+    // carrega motivos
+    showLoading();
+    $.ajax({
+        type:"GET",
+        url:`http://localhost:8080/services/rev-motivo`,
+        success: function(data) {
+            $("#motivo").empty();
+            $.each(data, function(index, element){
+                $("#motivo").append(`<option value="${element.Id}">${element.Descricao}</option>`);
+            })
+
+            $.ajax({
+                type:"GET",
+                url:`http://localhost:8080/services/rev-responsavel`,
+                success: function(data) {
+                    $("#responsavel").empty();
+                    $.each(data, function(index, element){
+                        $("#responsavel").append(`<option value="${element.Id}">${element.Nome}</option>`);
+                    })
+                    $('select').material_select();
+                    hideLoading();
+                },
+                error: function(xhr, error){
+                    hideLoading();
+                },
+                dataType: 'json',
+            });
+        },
+        error: function(xhr, error){
+            hideLoading();
+        },
+        dataType: 'json',
+    });
+}
+
+function partNumberAutocomplete(){
+    if ($("#partNumber").val().length >= 2){
+        $.ajax({
+            type:"GET",
+            url:`http://localhost:8080/services/part_bin/${$("#partNumber").val()}`,
+            success: function(data) {
+                var dados = "{";
+                $.each(data, function(index, element){
+                    dados += "\"" + element.PART_CODE + "\":\"\","
+                });
+                dados = dados.substring(0, dados.length - 1);
+                dados += "}"                
+                $('#partNumber').autocomplete({
+                    data: JSON.parse(dados),
+                    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+                    onAutocomplete: function(val) {
+                    // Callback function when value is autcompleted.
+                    },
+                    minLength: 3, // The minimum length of the input for the autocomplete to start. Default: 1.
+                });
+            },
+            error: function(xhr, error){
+                console.log("deu ruim " + error);
+            },
+            dataType: 'json',
+        });
+    }
+}
+
+function fillPnDescricao(){
+    showLoading();
+    $.ajax({
+        type:"GET",
+        url:`http://localhost:8080/services/part_bin/${$("#partNumber").val()}`,
+        success: function(data) {
+            console.log(data[0]);
+            if(data[0].DESCRICAO != undefined)
+            {
+                $("#pnDescricao").val(data[0].DESCRICAO);
+                Materialize.updateTextFields();
+                hideLoading();
+            }
+        },
+        error: function(xhr, error){
+            console.log(error);
+            hideLoading();
+        },
+        dataType: 'json',
+    });
+}
+
+function postData(){
+    showLoading();
+    var data = {
+        noDoc:`${$("#noDoc").val()}`,
+        item:`${$("#item").val()}`,
+        dataEmissao:`${prepareDateToServer($("#dataEmissao").val())}`,
+        areaSolicitante:`${$("#areaSolicitante").val()}`,
+        nomeSolicitante:`${$("#nomeSolicitante").val()}`,
+        responsavel:`${$("#responsavel").val()}`,
+        qa:`${$("#qa").val()}`,
+        motivo:`${$("#motivo").val()}`,
+        notaFiscal:`${$("#notaFiscal").val()}`,
+        partNumber:`${$("#partNumber").val()}`,
+        pnDescricao:`${$("#pnDescricao").val()}`,
+        quantidade:`${$("#quantidade").val()}`,
+        anexo:`${$("#nomeAnexo").val()}`
+    }
+    $.ajax({
+        type:"POST",
+        url:`http://localhost:8080/services/rev`,
+        data: data,
+        success: function(data) {
+            $("#form").submit();
+            hideLoading();
+        },
+        error: function(xhr, error){
+            console.log(error);
+            hideLoading();
+        },
+        dataType: 'json',
+    });
+}

@@ -1,11 +1,11 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "PrimeirosApp",
-  "short_name": "PrimeirosApp",
-  "version": "br.com.testeproject",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
+  "name": "App Rev",
+  "short_name": "App Rev",
+  "version": "br.com.apprev",
+  "description": "Um aplicativo para atender a funcionalidade de inclusão de revs do sistema BVQC",
+  "author": "André Oliveira",
   "icons": [],
   "start_url": "index.html"
 }
