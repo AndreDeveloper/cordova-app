@@ -1,7 +1,7 @@
 const express = require('express');  
 const db = require("../app-modules/db");
 const router = express.Router();  
-const pastaAnexo = "c:/tmp/node";
+const pastaAnexo = "C:/TMP";
 
 router.all("/*", function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -120,10 +120,13 @@ router.post('/rev', function(req, res){
         }else{
             query = ``;
         }         
-    });        
+    });
+
+    var query = ``
+    
 });
 
-router.post('/rev-anexo/upload', function(req, res) {
+router.post('/rev/anexo', function(req, res) {
     if (!req.files)
       return res.status(400).send('Nenhum arquivo selecionado');
    
@@ -131,12 +134,11 @@ router.post('/rev-anexo/upload', function(req, res) {
     let sampleFile = req.files.anexo;
    
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(pastaAnexo, function(err) {
+    sampleFile.mv(`${pastaAnexo}/${sampleFile.name.replace(" ", "_")}`, function(err) {
       if (err)
         return res.status(500).send(err);
         
       return res.status(200).send("File uploaded!");      
     });
   });
-  
 module.exports = router;

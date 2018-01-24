@@ -68,14 +68,14 @@ block content
                 .input-field.col.s12                            
                     input#quantidade(type="number")
                     label(for="quantidade") Quantidade
-        form#form(action='http://localhost:8000/services/rev/anexo', encType="multipart/form-data" , method="POST")
+        form#form(action='http://localhost:8080/services/rev/anexo', encType="multipart/form-data" , method="POST")
             .row
                 .input-field.col.s12                            
                     label Anexo
                     .file-field.input-field
                         .btn
                             span Browse
-                            input#anexo(type = "file")                                
+                            input#anexo(type = "file", name="anexo")                                
                         .file-path-wrapper
                             input#nomeAnexo.file-path.validate(type = "text", placeholder = "Selecione um PDF")
                         
