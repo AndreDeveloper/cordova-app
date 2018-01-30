@@ -9,6 +9,12 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "br.com.testeproject"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "br.com.testeproject"
+    },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "br.com.apprev"
     }
   },
   "dependent_plugins": {}

@@ -1,10 +1,10 @@
 echo off
 cls
-echo reading files...
+echo rendering PUGs ...
 
-start pug files\www --out www
+call pug files\www --out www
 
 echo inicializing cordova
 
-cordova run browser
+call cordova run browser
 

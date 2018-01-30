@@ -103,3 +103,31 @@ function getMonthIndex(month){
     return undefined;
 }
 
+function showAlert(mensagem, tipo){
+    backgroundClass = "";
+    switch(tipo){
+        case "info":
+            backgroundClass = "indigo lighten-2";
+            break ;
+        case "error":
+            backgroundClass = "red lighten-2";
+            break;
+        case "success":
+            backgroundClass = "green lighten-2";
+            break;
+    }
+
+    $("#alertMessage").empty();
+    $("#alertMessage").append(mensagem);
+
+    $("#alertContent").removeClass("indigo");
+    $("#alertContent").removeClass("red");
+    $("#alertContent").removeClass("green");
+    $("#alertContent").removeClass("lighten-2");    
+    
+    $("#alertContent").addClass(backgroundClass);
+
+    $("#modalAlert").modal("open");
+    
+}
+

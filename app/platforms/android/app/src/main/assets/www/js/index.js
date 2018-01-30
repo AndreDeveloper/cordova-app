@@ -44,3 +44,90 @@ var app = {
 };
 
 app.initialize();
+
+$(document).ready(function(){
+    $(".button-collapse").sideNav();    
+    $(".modal").modal();
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: true // Close upon selecting a date,
+      });
+    $('select').material_select();    
+});
+
+function showLoading(){
+    $('#modalLoading').modal('open');
+}
+
+function hideLoading(){
+    $('#modalLoading').modal('close');
+}
+
+function prepareDateToServer(date){
+    var arrDate = date.split(" ");
+    return `${arrDate[2]}-${getMonthIndex(arrDate[1].replace(",",""))}-${arrDate[0]}`
+}
+
+function getMonthIndex(month){
+    switch(month) {
+        
+        case "January":
+            return 1;
+        case "February":
+            return 2;
+        case "March":
+            return 3;
+        case "April":
+            return 4
+        case "May":
+            return 5;
+        case "June":
+            return 6;
+        case "July":
+            return 7;
+        case "August":
+            return 8;
+        case "September":
+            return 9;
+        case "October":
+            return 10;
+        case "November":
+            return 11;
+        case "December":
+            return 12;
+    }
+    return undefined;
+}
+
+function showAlert(mensagem, tipo){
+    backgroundClass = "";
+    switch(tipo){
+        case "info":
+            backgroundClass = "indigo lighten-2";
+            break ;
+        case "error":
+            backgroundClass = "red lighten-2";
+            break;
+        case "success":
+            backgroundClass = "green lighten-2";
+            break;
+    }
+
+    $("#alertMessage").empty();
+    $("#alertMessage").append(mensagem);
+
+    $("#alertContent").removeClass("indigo");
+    $("#alertContent").removeClass("red");
+    $("#alertContent").removeClass("green");
+    $("#alertContent").removeClass("lighten-2");    
+    
+    $("#alertContent").addClass(backgroundClass);
+
+    $("#modalAlert").modal("open");
+    
+}
+

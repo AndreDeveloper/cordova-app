@@ -15,6 +15,11 @@ function mountEvents(){
     $("#btnPesquisarRev").bind("click", function(event){
         searchRev();
     });
+
+    $(".btn_inspecionar").unbind("click");
+    $(".btn_inspecionar").bind("click", function(){
+        id = $(this).attr("id");        
+    });
 }
 
 function mountCard(rev){
@@ -57,7 +62,7 @@ function mountCard(rev){
               </table>                                  
             </div>
             <div class="card-action center-align">
-              <a id="${rev.NumeroDoc}" class="waves-effect waves-light green accent-4 btn"><i class="material-icons right">edit</i>Inspecionar</a>              
+              <a id="${rev.NumeroDoc}" class="waves-effect waves-light green accent-4 btn btn_inspecionar"><i class="material-icons right">edit</i>Inspecionar</a>              
             </div>
           </div>
         </div>

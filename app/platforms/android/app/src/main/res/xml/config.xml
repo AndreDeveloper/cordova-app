@@ -1,15 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="br.com.testeproject" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="br.com.apprev" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>PrimeirosApp</name>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <name>App Rev</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Um aplicativo para atender a funcionalidade de inclusão de revs do sistema BVQC
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="andredeveloper59@gmail.com" href="http://github.com/andredeveloper">
+        André Oliveira
     </author>
     <content src="index.html" />
     <access origin="*" />

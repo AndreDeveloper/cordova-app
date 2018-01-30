@@ -79,66 +79,68 @@ router.get('/rev-responsavel', function(req, res){
 router.post('/rev', function(req, res){        
     var body = req.body;
     var query = ``;
+    if (!req.files) return res.status(400).send('Nenhum arquivo selecionado');
     //verifica se existe registro no banco
     db.query(`SELECT * FROM REVINSPECAO WHERE NumeroDOC = '${body.noDoc}'`, function(err, result){
         if(result.recordset.length <= 0){
+            
             // recupero id idNumberDoc
             db.query(`SELECT * from PART_BIN WHERE PART_CODE = '${body.partNumber}'`, function(err, result){
-                            
-            query = `INSERT INTO REVINSPECAO(
-                NumeroDoc, 
-                Item, 
-                DataEmissao, 
-                AreaSolicitante, 
-                NomeSolicitante, 
-                Responsavel_ID, 
-                QA, 
-                Motivo_ID, 
-                NotaFiscal, 
-                Part_Number_DOC_ID, 
-                Quantidade,
-                Anexo
-            )VALUES(
-                  '${body.noDoc}',
-                  '${body.item}',
-                  '${body.dataEmissao}',
-                  '${body.areaSolicitante}',
-                  '${body.nomeSolicitante}',
-                  '${body.responsavel}',
-                  '${body.qa}',
-                  ${body.motivo},
-                  '${body.notaFiscal}',
-                  '${result.recordset[0].ID}',
-                  ${body.quantidade},
-                  '${pastaAnexo}/${body.anexo}'
-                )`;
-                db.query(query, function(err, result){
-                    res.status(200);
-                    res.send(result);            
+            
+                // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+                let sampleFile = req.files.anexo;
+                let nomeAnexo = `${pastaAnexo}/${sampleFile.name.replace(" ", "_")}`;
+                // Use the mv() method to place the file somewhere on your server
+                sampleFile.mv(nomeAnexo, function(err) {
+                    if (err){
+                        res.status(500);
+                        res.send("não foi possivel fazer upload do anexo, erro:" + err);            
+                    }else{
+                        query = `INSERT INTO REVINSPECAO(
+                                    NumeroDoc, 
+                                    Item, 
+                                    DataEmissao, 
+                                    AreaSolicitante, 
+                                    NomeSolicitante, 
+                                    Responsavel_ID, 
+                                    QA, 
+                                    Motivo_ID, 
+                                    NotaFiscal, 
+                                    Part_Number_DOC_ID, 
+                                    Quantidade,
+                                    Anexo
+                                )VALUES(
+                                    '${body.noDoc}',
+                                    '${body.item}',
+                                    '${body.dataEmissao}',
+                                    '${body.areaSolicitante}',
+                                    '${body.nomeSolicitante}',
+                                    '${body.responsavel}',
+                                    '${body.qa}',
+                                    ${body.motivo},
+                                    '${body.notaFiscal}',
+                                    '${result.recordset[0].ID}',
+                                    ${body.quantidade},
+                                    '${nomeAnexo}'
+                                    )`;
+                        db.query(query, function(err, result){
+                            if(err){
+                                res.status(500);
+                                res.send("não foi possivel fazer inserção da rev, erro:" + err);            
+                            }else{
+                                res.status(200);
+                                res.send({resultado: 1});            
+                            }
+                        });   
+                    }                      
                 });
             });
         }else{
             query = ``;
+            res.status(500);
+            res.send("Já existe rev cadastrada para esse doc");            
         }         
-    });
-
-    var query = ``
-    
+    });    
 });
 
-router.post('/rev/anexo', function(req, res) {
-    if (!req.files)
-      return res.status(400).send('Nenhum arquivo selecionado');
-   
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.anexo;
-   
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(`${pastaAnexo}/${sampleFile.name.replace(" ", "_")}`, function(err) {
-      if (err)
-        return res.status(500).send(err);
-        
-      return res.status(200).send("File uploaded!");      
-    });
-  });
 module.exports = router;
