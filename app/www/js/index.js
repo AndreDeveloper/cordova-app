@@ -43,9 +43,18 @@ var app = {
     }
 };
 
+var Environments = {
+    brower: "http://localhost:8080",
+    app: "http://10.11.51.178:8080"
+}
+
+var Environment = "";
+
+
 app.initialize();
 
 $(document).ready(function(){
+    setEnvironment(Environments.app);
     $(".button-collapse").sideNav();    
     $(".modal").modal();
     $('.datepicker').pickadate({
@@ -56,8 +65,17 @@ $(document).ready(function(){
         close: 'Ok',
         closeOnSelect: true // Close upon selecting a date,
       });
-    $('select').material_select();    
+    $('select').material_select(); 
+    $(".button-collapse").sideNav();   
 });
+
+function getEnvironment(){
+    return Environment;
+}
+
+function setEnvironment(path){
+    Environment = path;
+}
 
 function showLoading(){
     $('#modalLoading').modal('open');

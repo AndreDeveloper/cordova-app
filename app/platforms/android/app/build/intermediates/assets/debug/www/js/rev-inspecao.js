@@ -18,7 +18,8 @@ function mountEvents(){
 
     $(".btn_inspecionar").unbind("click");
     $(".btn_inspecionar").bind("click", function(){
-        id = $(this).attr("id");        
+        id = $(this).attr("id");
+        location.assign(`/inspecao/${id}`);
     });
 }
 
@@ -73,7 +74,7 @@ function partNumberAutocomplete(){
     if ($("#partNumber").val().length >= 2){
         $.ajax({
             type:"GET",
-            url:`http://localhost:8080/services/part_bin/${$("#partNumber").val()}`,
+            url:`${getEnvironment()}/services/part_bin/${$("#partNumber").val()}`,
             success: function(data) {
                 var dados = "{";
                 $.each(data, function(index, element){
@@ -102,7 +103,7 @@ function docAutocomplete(){
     if ($("#doc").val().length >= 2){
         $.ajax({
             type:"GET",
-            url:`http://localhost:8080/services/rev/${$("#doc").val()}`,
+            url:`${getEnvironment()}/services/rev/${$("#doc").val()}`,
             success: function(data) {                
                 var dados = "{";
                 $.each(data, function(index, element){
@@ -136,7 +137,7 @@ function searchRev(){
     }
         $.ajax({
             type:"POST",
-            url:`http://localhost:8080/services/rev/pesquisa`,
+            url:`${getEnvironment()}/services/rev/pesquisa`,
             data: dataJson,
             success: function(data) {                
                 $("#resultadoPesquisa").empty();

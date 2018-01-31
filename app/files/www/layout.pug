@@ -14,28 +14,86 @@ html(lang="en")
         .navbar-fixed
             nav
                 div.nav-wrapper.red.darken-4
-                    a(href="#!", class="brand-logo") Bureau Veritas
-                    a(href="#", data-activates="mobile-demo", class="button-collapse")
-                        i.material-icons menu
-                    ul.right.hide-on-med-and-down
-                        li
-                            a( href="sass.html") Sass
-                        li
-                            a( href="badges.html") Components
-                        li 
-                            a( href="collapsible.html") Javascript
-                        li 
-                            a( href="mobile.html") Mobile            
-                    ul#mobile-demo.side-nav
-                        li
-                            a( href="sass.html") Sass
-                        li
-                            a( href="badges.html") Components
-                        li 
-                            a( href="collapsible.html") Javascript
-                        li 
-                            a( href="mobile.html") Mobile 
-        
+                    a(href="#!", class="brand-logo") BVQC
+                    a.button-collapse( href="#" data-activates="slide-out" )
+                        i.material-icons menu                                
+        ul.side-nav#slide-out
+            li
+                .user-view
+                    .background.logo
+                        img(src="img/login_screen_BV_ico.png")
+      
+                    a(href="#!user")
+                        img.circle(src="img/avatar_2x.png")
+                    a(href="#!name")
+                        span.black-text.name Nome Usuario
+                    a(href="#!email")
+                        span.black-text.email fulanodetal@bv.com.br    
+            li.no-padding
+                ul.collapsible.collapsible-accordion
+                    li
+                        a.collapsible-header BVQC
+                            i.material-icons arrow_drop_down
+                        .collapsible-body
+                            ul
+                                li
+                                    a( href="#!") Inspeções abertas
+                                li
+                                    a( href="#!") Usuarios
+                                li
+                                    a.subheader RELATÓRIOS:
+                                li
+                                    a( href="#!") Partes
+                                li
+                                    a( href="#!") Produtos
+                                li
+                                    a( href="#!") Inbound
+                                li
+                                    a( href="#!") Sales Return
+            li.no-padding
+                ul.collapsible.collapsible-accordion
+                    li
+                        a.collapsible-header Inspeções
+                            i.material-icons arrow_drop_down
+                        .collapsible-body
+                            ul
+                                li
+                                    a.subheader INSPEÇÕES:
+                                li
+                                    a( href="#!") Partes
+                                li
+                                    a( href="#!") Produtos
+                                li
+                                    a( href="#!") Inbound
+                                li
+                                    a( href="#!") Sales Return
+                                li
+                                    a.subheader BVQC
+                                li
+                                    a( href="#!") Análise de Estoque
+                                li
+                                    a( href="#!") REV    
+            li.no-padding
+                ul.collapsible.collapsible-accordion
+                    li
+                        a.collapsible-header Cargas
+                            i.material-icons arrow_drop_down
+                        .collapsible-body
+                            ul
+                                li
+                                    a.subheader CARGAS:
+                                li
+                                    a( href="#!") Partes
+                                li
+                                    a( href="#!") Produtos
+                                li
+                                    a( href="#!") Inbound
+                                li
+                                    a( href="#!") Sales Return
+                                li
+                                    a.subheader BVQC:
+                                li
+                                    a( href="#!") Relação PART/BIN                                
 
         block content
             
