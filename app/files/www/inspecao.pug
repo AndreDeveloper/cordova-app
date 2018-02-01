@@ -5,7 +5,113 @@ form.col.s12
     .row                  
         .col.s12
             .row
-                .input-field.col.s12
-                    i.material-icons.prefix insert_drive_file
-                    input#doc.autocomplete(type="text")
-                    label(for="doc") DOC:
+                .input-field.col.s12                             
+                    input#partNumber.autocomplete(type="text", name="partNumber")        
+                    label(for="partNumber") Part No Fisico.
+
+            .row                        
+                .input-field.col.s12 
+                    input#pnDescricao(type="text", name="pnDescricao")
+                    label(for="pnDescricao") Descricao Pn Fisico
+        
+            .row                        
+                .input-field.col.s12 
+                    input#qdadeInspecionada(type="text", name="pnDescricao")
+                    label(for="qdadeInspecionada") Quantidade Inspecionada
+            
+            .row                        
+                .input-field.col.s12 
+                    input#qdadeLiberada(type="text", name="pnDescricao")
+                    label(for="qdadeLiberada") Quantidade Bloqueada
+            
+            .row                        
+                .input-field.col.s12 
+                    input#qdadeBloqueada(type="text", name="pnDescricao")
+                    label(for="qdadeBloqueada") Quantidade Bloqueada
+
+            .row
+                .input-field.col.s12   
+                    select#motivo(name="motivo")
+                        option
+                    label Motivo
+            
+            .row                        
+                .input-field.col.s12 
+                    textarea#observacao.materialize-textarea(data-length="500")
+                    label(for="observacao") Observacao
+
+            .row                        
+                .input-field.col.s12 
+                    textarea#parecerTecnico.materialize-textarea(data-length="1000")
+                    label(for="parecerTecnico") Parecer Técnico
+
+            .row                        
+                .input-field.col.s12 
+                    input#conclusao(type="text", name="pnDescricao")
+                    label(for="conclusão") Conclusão
+
+            .row
+                .col.s12.m6
+                    .card
+                        .card-image
+                            img( src="img/images.png")                            
+                            a#btnFoto1.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
+                                i.material-icons add
+                            input#foto1(type="file", style="display: none")
+                        .card-content
+                            h3.center-align FOTO 1
+            .row
+                .col.s12.m6
+                    .card
+                        .card-image
+                            img( src="img/images.png")                            
+                            a#btnFoto2.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
+                                i.material-icons add
+                            input#foto2(type="file", style="display: none")
+                        .card-content
+                            h3.center-align FOTO 2
+
+            .row
+                .col.s12.m6
+                    .card
+                        .card-image
+                            img( src="img/images.png")                            
+                            a#btnFoto3.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
+                                i.material-icons add
+                            input#foto3(type="file", style="display: none")
+                        .card-content
+                            h3.center-align FOTO 3
+            .row
+                .col.s12.m6
+                    .card
+                        .card-image
+                            img( src="img/images.png")                            
+                            a#btnFoto4.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
+                                i.material-icons add
+                            input#foto4(type="file", style="display: none")
+                        .card-content
+                            h3.center-align FOTO 4
+            .row
+                .col.s12.m6
+                    .card
+                        .card-image
+                            img( src="img/images.png")                            
+                            a#btnFoto5.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
+                                i.material-icons add
+                            input#foto5(type="file", style="display: none")
+                        .card-content
+                            h3.center-align FOTO 5
+            .row
+                .col.s12.m6
+                    .card
+                        .card-image
+                            img( src="img/images.png")                            
+                            a#btnFoto6.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
+                                i.material-icons add
+                            input#foto6(type="file", style="display: none")
+                        .card-content
+                            h3.center-align FOTO 6
+    
+    .row.center-align
+        a#salvar.waves-effect.waves-light.btn Salvar
+            i.material-icons.left save

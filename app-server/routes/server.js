@@ -24,7 +24,7 @@ router.get('/part_bin/:q', function(req, res){
 router.get('/rev/:id', function(req, res){        
     var filtro = req.params.id;
                                     
-    var query = `select * from revinspecao where numerodoc = '${filtro}'`    
+    var query = `select * from revinspecao where id = '${filtro}'`    
     
     db.query(query, function(err, result){
         res.status(200);
@@ -119,7 +119,8 @@ router.post('/rev', function(req, res){
                                     NotaFiscal, 
                                     Part_Number_DOC_ID, 
                                     Quantidade,
-                                    Anexo
+                                    Anexo,
+                                    Status_ID
                                 )VALUES(
                                     '${body.noDoc}',
                                     '${body.item}',
@@ -132,7 +133,8 @@ router.post('/rev', function(req, res){
                                     '${body.notaFiscal}',
                                     '${result.recordset[0].ID}',
                                     ${body.quantidade},
-                                    '${nomeAnexo}'
+                                    '${nomeAnexo}',
+                                    1
                                     )`;
                         db.query(query, function(err, result){
                             if(err){

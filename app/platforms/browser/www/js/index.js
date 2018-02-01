@@ -83,6 +83,7 @@ function loadComponents(){
       });
     $('select').material_select(); 
     $(".button-collapse").sideNav();
+    $("body").removeAttr('style');
 }
 
 function renderPage(page){
@@ -94,7 +95,7 @@ function renderPage(page){
             $("#body").empty();
             $("#body").append(data);
             loadComponents();
-            hideLoading();
+            hideLoading();            
         },
         error: function(xhr, error){
             showAlert("Falha ao carregar a pagina", mensagem.tipo.error)
@@ -103,12 +104,21 @@ function renderPage(page){
     });
 }
 
-function renderHtml(html){
+function renderHtml(html){    
     showLoading();
     $("#body").empty();
     $("#body").append(html);
-    loadComponents();
-    hideLoading();       
+    loadComponents();  
+    hideLoading();  
+    $("body").removeAttr('style');
+}
+
+function appendHtml(html){  
+    showLoading();      
+    $("#body").append(html);
+    loadComponents(); 
+    hideLoading();   
+    $("body").removeAttr('style');
 }
 
 function showLoading(){
