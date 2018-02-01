@@ -48,14 +48,30 @@ var Environments = {
     app: "http://10.11.51.178:8080"
 }
 
+var mensagem = {
+    tipo: {
+        info: "info",
+        error: "error",
+        success: "success"
+    }
+}
+var cordovaServer = {
+    default: "http://localhost:8000"
+}
+
 var Environment = "";
 
 
 app.initialize();
 
-$(document).ready(function(){
-    setEnvironment(Environments.brower);
-    $(".button-collapse").sideNav();    
+$(function(){
+    Environment = Environments.brower;
+    $(".button-collapse").sideNav();        
+    loadComponents();
+    renderPage("home");
+})
+
+function loadComponents(){
     $(".modal").modal();
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
@@ -66,15 +82,33 @@ $(document).ready(function(){
         closeOnSelect: true // Close upon selecting a date,
       });
     $('select').material_select(); 
-    $(".button-collapse").sideNav();   
-});
-
-function getEnvironment(){
-    return Environment;
+    $(".button-collapse").sideNav();
 }
 
-function setEnvironment(path){
-    Environment = path;
+function renderPage(page){
+    showLoading();
+    $.ajax({
+        type:"GET",
+        url:`${cordovaServer.default}/${page}.html`,
+        success: function(data) {
+            $("#body").empty();
+            $("#body").append(data);
+            loadComponents();
+            hideLoading();
+        },
+        error: function(xhr, error){
+            showAlert("Falha ao carregar a pagina", mensagem.tipo.error)
+        },
+        //dataType: 'text/html',
+    });
+}
+
+function renderHtml(html){
+    showLoading();
+    $("#body").empty();
+    $("#body").append(html);
+    loadComponents();
+    hideLoading();       
 }
 
 function showLoading(){
@@ -121,22 +155,22 @@ function getMonthIndex(month){
     return undefined;
 }
 
-function showAlert(mensagem, tipo){
+function showAlert(msg, tipo){
     backgroundClass = "";
     switch(tipo){
-        case "info":
+        case mensagem.tipo.info:
             backgroundClass = "indigo lighten-2";
             break ;
-        case "error":
+        case mensagem.tipo.error:
             backgroundClass = "red lighten-2";
             break;
-        case "success":
+        case mensagem.tipo.success:
             backgroundClass = "green lighten-2";
             break;
     }
 
     $("#alertMessage").empty();
-    $("#alertMessage").append(mensagem);
+    $("#alertMessage").append(msg);
 
     $("#alertContent").removeClass("indigo");
     $("#alertContent").removeClass("red");

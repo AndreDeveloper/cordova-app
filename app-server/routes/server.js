@@ -21,7 +21,18 @@ router.get('/part_bin/:q', function(req, res){
     });
 });
 
-router.get('/rev/:q', function(req, res){        
+router.get('/rev/:id', function(req, res){        
+    var filtro = req.params.id;
+                                    
+    var query = `select * from revinspecao where numerodoc = '${filtro}'`    
+    
+    db.query(query, function(err, result){
+        res.status(200);
+        res.send(result.recordset);            
+    });
+});
+
+router.get('/rev/:q/_search', function(req, res){        
     var filtro = req.params.q;
                                     
     var query = `select * from revinspecao where numerodoc like '%${filtro}%'`    
@@ -32,7 +43,7 @@ router.get('/rev/:q', function(req, res){
     });
 });    
 
-router.post('/rev/pesquisa', function(req, res){        
+router.post('/rev/_search', function(req, res){        
     var params = req.body;        
     var query = `select 
                     REV.NumeroDoc,

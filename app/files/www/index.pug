@@ -1,15 +1,6 @@
 extends layout.pug
-
-block variables
-    - var title = "Bureau Veritas - Home"
-
-block scripts  
-
 block content
-    .row
-        .col.s12.m6
-            a(href="rev-inspecao.html")
-                .card.blue-grey.darken-1
-                    .card-content.white-text
-                        span.card-title REV INSPEÇÃO
-                        p Realiza o cadastro e a inspeção das REVs
+    include loading-modal
+    include modal-alert
+    div#body
+        

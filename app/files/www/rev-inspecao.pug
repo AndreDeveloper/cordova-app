@@ -1,47 +1,38 @@
-extends layout.pug
+script(src="js/rev-inspecao.js" rel="text/javascript")
 
-block variables
-    - var title = "Bureau Veritas - REV INSPEÇÃO"
+h3.center-align Rev
 
-block scripts  
-    script(src="js/rev-inspecao.js" rel="text/javascript")
+.fixed-action-btn.horizontal
+    a.btn-floating.btn-large.waves-effect.waves-light.red#btnNovaRev
+        i.material-icons add
 
-block content
-    include loading-modal
-    
-    h3.center-align Rev
-
-    .fixed-action-btn.horizontal
-        a.btn-floating.btn-large.waves-effect.waves-light.red(href="nova-rev.html")
-            i.material-icons add
-
-    .row
-        form.col.s12
-            .row                  
-                .col.s12
-                    .row
-                        .input-field.col.s12
-                            i.material-icons.prefix insert_drive_file
-                            input#doc.autocomplete(type="text")
-                            label(for="doc") DOC:                  
-                
-                .col.s12
-                    .row
-                        .input-field.col.s12
-                            i.material-icons.prefix dialpad
-                            input#partNumber.autocomplete(type="text")
-                            label(for="partNumber") Part Number:                  
-                .col.s12
-                    .row
-                        .input-field.col.s12
-                            select#status                        
-                                option 
-                                option(value="Concluido") Concluido
-                                option(value="Pendente") Pendente                        
-                            label(for="Part Number") Part Number:
-                .col.s12
-                    .row
-                        .col.s12.center-align
-                            a#btnPesquisarRev.waves-effect.waves-light.btn Pesquisar
-                                i.material-icons.right search    
-    div#resultadoPesquisa                    
+.row
+    form.col.s12
+        .row                  
+            .col.s12
+                .row
+                    .input-field.col.s12
+                        i.material-icons.prefix insert_drive_file
+                        input#doc.autocomplete(type="text")
+                        label(for="doc") DOC:                  
+            
+            .col.s12
+                .row
+                    .input-field.col.s12
+                        i.material-icons.prefix dialpad
+                        input#partNumber.autocomplete(type="text")
+                        label(for="partNumber") Part Number:                  
+            .col.s12
+                .row
+                    .input-field.col.s12
+                        select#status                        
+                            option 
+                            option(value="Concluido") Concluido
+                            option(value="Pendente") Pendente                        
+                        label(for="Part Number") Part Number:
+            .col.s12
+                .row
+                    .col.s12.center-align
+                        a#btnPesquisarRev.waves-effect.waves-light.btn Pesquisar
+                            i.material-icons.right search    
+div#resultadoPesquisa                    

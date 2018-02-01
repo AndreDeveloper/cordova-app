@@ -1,6 +1,6 @@
-$(document).ready(function() {            
+$(function(){
     mountEvents();
-});
+})
 
 function mountEvents(){
     $("#partNumber").on("keyup", function(event){
@@ -16,10 +16,17 @@ function mountEvents(){
         searchRev();
     });
 
+    $("#btnNovaRev").unbind("click");
+    $("#btnNovaRev").bind("click", function(event){
+        renderPage("nova-rev")
+    });
+
     $(".btn_inspecionar").unbind("click");
-    $(".btn_inspecionar").bind("click", function(){
+    $(".btn_inspecionar").bind("click", function(event){
         id = $(this).attr("id");
-        location.assign(`/inspecao/${id}`);
+        storageInspecaoData(id);
+        console.log("chamei");
+        location.assign(`/inspecao.html`);
     });
 }
 
@@ -74,7 +81,7 @@ function partNumberAutocomplete(){
     if ($("#partNumber").val().length >= 2){
         $.ajax({
             type:"GET",
-            url:`${getEnvironment()}/services/part_bin/${$("#partNumber").val()}`,
+            url:`${Environment}/services/part_bin/${$("#partNumber").val()}`,
             success: function(data) {
                 var dados = "{";
                 $.each(data, function(index, element){
@@ -103,7 +110,7 @@ function docAutocomplete(){
     if ($("#doc").val().length >= 2){
         $.ajax({
             type:"GET",
-            url:`${getEnvironment()}/services/rev/${$("#doc").val()}`,
+            url:`${Environment}/services/rev/${$("#doc").val()}/_search`,
             success: function(data) {                
                 var dados = "{";
                 $.each(data, function(index, element){
@@ -137,19 +144,47 @@ function searchRev(){
     }
         $.ajax({
             type:"POST",
-            url:`${getEnvironment()}/services/rev/pesquisa`,
-            data: dataJson,
+            url:`${Environment}/services/rev/_search`,
+            data: dataJson,            
             success: function(data) {                
-                $("#resultadoPesquisa").empty();
+                var html = "";                
                 $.each(data, function(index, element){
-                    $("#resultadoPesquisa").append(mountCard(element));
+                    html += mountCard(element);
                 })
-                hideLoading();
+                hideLoading();                
+                renderHtml(html);
             },
             error: function(xhr, error){
                 console.log(error);
                 hideLoading();
             },
+        dataType: 'json',
+    });
+}
+
+function storageInspecaoData(id){
+    $.ajax({
+        type:"GET",
+        url:`${Environment}/services/rev/${id}/_search`,
+        success: function(data) {                
+            if(data[0] != undefined ){
+                localStorage.setItem("inspecao.anexo", data[0].Anexo);
+                localStorage.setItem("inspecao.AreaSolicitante", data[0].AreaSolicitante);
+                localStorage.setItem("inspecao.DataEmissao", data[0].DataEmissao);
+                localStorage.setItem("inspecao.Id", data[0].Id);
+                localStorage.setItem("inspecao.Item", data[0].Item);
+                localStorage.setItem("inspecao.Motivo_ID", data[0].Motivo_ID);
+                localStorage.setItem("inspecao.NomeSolicitante", data[0].NomeSolicitante);
+                localStorage.setItem("inspecao.NotaFiscal", data[0].NotaFiscal);
+                localStorage.setItem("inspecao.NumeroDoc", data[0].NumeroDoc);                
+                localStorage.setItem("inspecao.Part_Number_DOC_ID", data[0].Part_Number_DOC_ID);
+                localStorage.setItem("inspecao.Quantidade", data[0].Quantidade);
+                localStorage.setItem("inspecao.Responsavel_ID", data[0].Responsavel_ID);                                   
+            }
+        },
+        error: function(xhr, error){
+            console.log("deu ruim " + error);
+        },
         dataType: 'json',
     });
 }

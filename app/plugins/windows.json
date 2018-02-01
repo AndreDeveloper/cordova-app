@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "App Rev"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "App Rev"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "App Rev"
+    }
+  },
+  "dependent_plugins": {}
+}

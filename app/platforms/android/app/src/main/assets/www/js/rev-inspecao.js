@@ -17,9 +17,11 @@ function mountEvents(){
     });
 
     $(".btn_inspecionar").unbind("click");
-    $(".btn_inspecionar").bind("click", function(){
+    $(".btn_inspecionar").bind("click", function(event){
         id = $(this).attr("id");
-        location.assign(`/inspecao/${id}`);
+        storageInspecaoData(id);
+        console.log("chamei");
+        location.assign(`/inspecao.html`);
     });
 }
 
@@ -103,7 +105,7 @@ function docAutocomplete(){
     if ($("#doc").val().length >= 2){
         $.ajax({
             type:"GET",
-            url:`${getEnvironment()}/services/rev/${$("#doc").val()}`,
+            url:`${getEnvironment()}/services/rev/${$("#doc").val()}/_search`,
             success: function(data) {                
                 var dados = "{";
                 $.each(data, function(index, element){
@@ -137,7 +139,7 @@ function searchRev(){
     }
         $.ajax({
             type:"POST",
-            url:`${getEnvironment()}/services/rev/pesquisa`,
+            url:`${getEnvironment()}/services/rev/_search`,
             data: dataJson,
             success: function(data) {                
                 $("#resultadoPesquisa").empty();
@@ -145,11 +147,39 @@ function searchRev(){
                     $("#resultadoPesquisa").append(mountCard(element));
                 })
                 hideLoading();
+                mountEvents();
             },
             error: function(xhr, error){
                 console.log(error);
                 hideLoading();
             },
+        dataType: 'json',
+    });
+}
+
+function storageInspecaoData(id){
+    $.ajax({
+        type:"GET",
+        url:`${getEnvironment()}/services/rev/${id}/_search`,
+        success: function(data) {                
+            if(data[0] != undefined ){
+                localStorage.setItem("inspecao.anexo", data[0].Anexo);
+                localStorage.setItem("inspecao.AreaSolicitante", data[0].AreaSolicitante);
+                localStorage.setItem("inspecao.DataEmissao", data[0].DataEmissao);
+                localStorage.setItem("inspecao.Id", data[0].Id);
+                localStorage.setItem("inspecao.Item", data[0].Item);
+                localStorage.setItem("inspecao.Motivo_ID", data[0].Motivo_ID);
+                localStorage.setItem("inspecao.NomeSolicitante", data[0].NomeSolicitante);
+                localStorage.setItem("inspecao.NotaFiscal", data[0].NotaFiscal);
+                localStorage.setItem("inspecao.NumeroDoc", data[0].NumeroDoc);                
+                localStorage.setItem("inspecao.Part_Number_DOC_ID", data[0].Part_Number_DOC_ID);
+                localStorage.setItem("inspecao.Quantidade", data[0].Quantidade);
+                localStorage.setItem("inspecao.Responsavel_ID", data[0].Responsavel_ID);                                   
+            }
+        },
+        error: function(xhr, error){
+            console.log("deu ruim " + error);
+        },
         dataType: 'json',
     });
 }

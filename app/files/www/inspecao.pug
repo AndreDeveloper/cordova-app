@@ -1,20 +1,11 @@
-extends layout.pug
-
-block variables
-    - var title = "Bureau Veritas - INSPEÇÃO"
-
-block scripts  
-    script(src="js/inspecao.js" rel="text/javascript")
-
-block content
-    include loading-modal
-        h3.center-align Inspeção
-        .row
-        form.col.s12
-            .row                  
-                .col.s12
-                    .row
-                        .input-field.col.s12
-                            i.material-icons.prefix insert_drive_file
-                            input#doc.autocomplete(type="text")
-                            label(for="doc") DOC:
+script(src="js/inspecao.js" rel="text/javascript")
+h3.center-align Inspeção
+.row
+form.col.s12
+    .row                  
+        .col.s12
+            .row
+                .input-field.col.s12
+                    i.material-icons.prefix insert_drive_file
+                    input#doc.autocomplete(type="text")
+                    label(for="doc") DOC:

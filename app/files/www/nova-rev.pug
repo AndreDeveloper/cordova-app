@@ -1,89 +1,76 @@
-extends layout.pug
+script(src="js/nova-rev.js" rel="textjavascript")        
 
-block variables
-    - var title = "Bureau Veritas - Nova Rev"
+h5.center-align Inclusão de Rev
 
-block scripts  
-    script(src="js/nova-rev.js" rel="textjavascript")    
+.row
+    .col.s12
+        form#form(encType="multipart/form-data" , method="POST")
+            .row
+                .input-field.col.s12                            
+                    input#noDoc(type="text", name="noDoc")
+                    label(for="noDoc") No. Doc  
+            .row
+                .input-field.col.s12                            
+                    input#item(type="text", name="item")
+                    label(for="item") Item  
+            .row
+                .input-field.col.s12                            
+                    input#dataEmissao.datepicker(type="text", name="dataEmissao")
+                    label(for="dataEmissao") Data Emissão Doc.  
+            .row
+                .input-field.col.s12                            
+                    input#areaSolicitante(type="text", name="areaSolicitante")
+                    label(for="areaSolicitante") Area Solicitante
+            .row
+                .input-field.col.s12                            
+                    input#nomeSolicitante(type="text", name="nomeSolicitante")
+                    label(for="nomeSolicitante") Nome Solicitante
 
-block content
-    include loading-modal
-    include modal-alert
-    
-    h5.center-align Inclusão de Rev
+            .row
+                .input-field.col.s12   
+                    select#responsavel(name="responsavel")
+                        option
+                    label Responsável
+            .row
+                .input-field.col.s12                            
+                    input#qa(type="text", name="qa")
+                    label(for="qa") Q&A
 
-    .row
-        .col.s12
-            form#form(encType="multipart/form-data" , method="POST")
-                .row
-                    .input-field.col.s12                            
-                        input#noDoc(type="text", name="noDoc")
-                        label(for="noDoc") No. Doc  
-                .row
-                    .input-field.col.s12                            
-                        input#item(type="text", name="item")
-                        label(for="item") Item  
-                .row
-                    .input-field.col.s12                            
-                        input#dataEmissao.datepicker(type="text", name="dataEmissao")
-                        label(for="dataEmissao") Data Emissão Doc.  
-                .row
-                    .input-field.col.s12                            
-                        input#areaSolicitante(type="text", name="areaSolicitante")
-                        label(for="areaSolicitante") Area Solicitante
-                .row
-                    .input-field.col.s12                            
-                        input#nomeSolicitante(type="text", name="nomeSolicitante")
-                        label(for="nomeSolicitante") Nome Solicitante
+            .row
+                .input-field.col.s12   
+                    select#motivo(name="motivo")
+                        option
+                    label Motivo
+            .row
+                .input-field.col.s12                            
+                    input#notaFiscal(type="text", name="notaFiscal")
+                    label(for="notaFiscal") Nota Fiscal
 
-                .row
-                    .input-field.col.s12   
-                        select#responsavel(name="responsavel")
-                            option
-                        label Responsável
-                .row
-                    .input-field.col.s12                            
-                        input#qa(type="text", name="qa")
-                        label(for="qa") Q&A
+            .row
+                .input-field.col.s12                             
+                    input#partNumber.autocomplete(type="text", name="partNumber")        
+                    label(for="partNumber") Part No Doc.
 
-                .row
-                    .input-field.col.s12   
-                        select#motivo(name="motivo")
-                            option
-                        label Motivo
-                .row
-                    .input-field.col.s12                            
-                        input#notaFiscal(type="text", name="notaFiscal")
-                        label(for="notaFiscal") Nota Fiscal
+            .row                        
+                .input-field.col.s12 
+                    input#pnDescricao.autocomplete(type="text", name="pnDescricao")
+                    label(for="pnDescricao") Descricao Pn Doc
 
-                .row
-                    .input-field.col.s12                             
-                        input#partNumber.autocomplete(type="text", name="partNumber")        
-                        label(for="partNumber") Part No Doc.
-
-                .row                        
-                    .input-field.col.s12 
-                        input#pnDescricao.autocomplete(type="text", name="pnDescricao")
-                        label(for="pnDescricao") Descricao Pn Doc
-
-                .row
-                    .input-field.col.s12                            
-                        input#quantidade(type="number", name="quantidade")
-                        label(for="quantidade") Quantidade
-                .row
-                    .input-field.col.s12                            
-                        label Anexo
-                        .file-field.input-field
-                            .btn
-                                span Browse
-                                input#anexo(type = "file", name="anexo")                                
-                            .file-path-wrapper
-                                input#nomeAnexo.file-path.validate(type = "text", placeholder = "Selecione um PDF")
-                        
-    
-    .row.center-align
-        a#salvar.waves-effect.waves-light.btn Salvar
-            i.material-icons.left save
+            .row
+                .input-field.col.s12                            
+                    input#quantidade(type="number", name="quantidade")
+                    label(for="quantidade") Quantidade
+            .row
+                .input-field.col.s12                            
+                    label Anexo
+                    .file-field.input-field
+                        .btn
+                            span Browse
+                            input#anexo(type = "file", name="anexo")                                
+                        .file-path-wrapper
+                            input#nomeAnexo.file-path.validate(type = "text", placeholder = "Selecione um PDF")
                     
-                                                            
-                    
+
+.row.center-align
+    a#salvar.waves-effect.waves-light.btn Salvar
+        i.material-icons.left save

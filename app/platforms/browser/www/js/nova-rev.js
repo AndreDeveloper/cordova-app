@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(function(){
     loadSelectFields();
     mountEvents();
-    $('#form').attr('action', `${getEnvironment()}/services/rev`);
+    $('#form').attr('action', `${Environment}/services/rev`);
 });
 
 function mountEvents(){
@@ -23,7 +23,7 @@ function loadSelectFields(){
     showLoading();
     $.ajax({
         type:"GET",
-        url:`${getEnvironment()}/services/rev-motivo`,
+        url:`${Environment}/services/rev-motivo`,
         success: function(data) {
             $("#motivo").empty();
             $.each(data, function(index, element){
@@ -32,7 +32,7 @@ function loadSelectFields(){
 
             $.ajax({
                 type:"GET",
-                url:`${getEnvironment()}/services/rev-responsavel`,
+                url:`${Environment}/services/rev-responsavel`,
                 success: function(data) {
                     $("#responsavel").empty();
                     $.each(data, function(index, element){
@@ -58,7 +58,7 @@ function partNumberAutocomplete(){
     if ($("#partNumber").val().length >= 2){
         $.ajax({
             type:"GET",
-            url:`${getEnvironment()}/services/part_bin/${$("#partNumber").val()}`,
+            url:`${Environment}/services/part_bin/${$("#partNumber").val()}`,
             success: function(data) {
                 var dados = "{";
                 $.each(data, function(index, element){
@@ -93,7 +93,7 @@ function fillPnDescricao(){
     showLoading();
     $.ajax({
         type:"GET",
-        url:`${getEnvironment()}/services/part_bin/${$("#partNumber").val()}`,
+        url:`${Environment}/services/part_bin/${$("#partNumber").val()}`,
         success: function(data) {
             try {                
                 if(data[0].DESCRICAO != undefined)
